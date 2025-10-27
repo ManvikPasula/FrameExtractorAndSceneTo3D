@@ -39,10 +39,22 @@ def download_video(youtube_url: str, output_path: str, progress_bar) -> str:
                 progress = min(downloaded / total, 1.0)
                 progress_bar.progress(progress)
     ydl_opts = {
-        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4',
-        'outtmpl': output_path,
+        "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/mp4",
+        "outtmpl": output_path,                
+        "merge_output_format": "mp4",
+        "noplaylist": True,
+        "geo_bypass": True,
+        "concurrent_fragment_downloads": 3,
+        "extractor_args": {"youtube": {"player_client": ["android", "web"]}},
+        "http_headers": {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            )
+        },
+        "quiet": True,
+        "no_warnings": False,
         'progress_hooks': [_hook],
-        'quiet': True
     }
     with YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(youtube_url, download=True)

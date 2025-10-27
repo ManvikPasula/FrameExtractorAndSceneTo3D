@@ -5,8 +5,21 @@ from yt_dlp import YoutubeDL
 
 def download_video(youtube_url: str, output_path: str) -> str:
     ydl_opts = {
-        "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4",
-        "outtmpl": output_path,
+        "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/mp4",
+        "outtmpl": output_path,                
+        "merge_output_format": "mp4",
+        "noplaylist": True,
+        "geo_bypass": True,
+        "concurrent_fragment_downloads": 3,
+        "extractor_args": {"youtube": {"player_client": ["android", "web"]}},
+        "http_headers": {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            )
+        },
+        "quiet": False,
+        "no_warnings": False,
     }
     with YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(youtube_url, download=True)
@@ -20,8 +33,8 @@ def on_trackbar(pos: int):
 
 
 if __name__ == "__main__":
-    YT_LINK = "https://www.youtube.com/watch?v=TIF3xiap60U&ab_channel=YNOTStudios" # vikram vedha interrogation scene
-    # YT_LINK = "https://www.youtube.com/watch?v=8DajVKAkL50" # matrix bullet time scene
+    # YT_LINK = "https://www.youtube.com/watch?v=TIF3xiap60U&ab_channel=YNOTStudios" # vikram vedha interrogation scene
+    YT_LINK = "https://www.youtube.com/watch?v=8DajVKAkL50" # matrix bullet time scene
     
     temp_video_path = "temp_video.mp4"
 
