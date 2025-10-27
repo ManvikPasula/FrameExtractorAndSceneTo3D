@@ -34,7 +34,7 @@ def on_trackbar(pos: int):
 
 if __name__ == "__main__":
     # YT_LINK = "https://www.youtube.com/watch?v=TIF3xiap60U&ab_channel=YNOTStudios" # vikram vedha interrogation scene
-    YT_LINK = "https://www.youtube.com/watch?v=8DajVKAkL50" # matrix bullet time scene
+    YT_LINK = "https://www.youtube.com/watch?v=Gpv-REHNPK4" # ending scene from star wars: the force awakens
     
     temp_video_path = "temp_video.mp4"
 
